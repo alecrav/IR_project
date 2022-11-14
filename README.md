@@ -1,2 +1,6 @@
-# IR_project
-Very simple information retrieval system implementation
+# Information Retrieval Project
+## Authors
+- Alessandro Cravioglio
+- Alfio Vavassori
+
+A very simple information retrieval system implementation

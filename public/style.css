@@ -19,12 +19,10 @@ nav {
     top:0;
     width: 100%;
     text-align: center;
-
 }
 
 /* Style the topnav links */
 nav a {
-    position: center;
     float: left;
     display: block;
     color: #f2f2f2;

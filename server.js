@@ -1,9 +1,13 @@
 var express = require('express');
 const https = require('http');
+const path = require('path');
 var app = express();
 var fs = require('fs');
 const { response } = require('express');
 const port = 3000;
+
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, '/public')));
 
 function req_function(first, second, num) {
     let query = 'http://localhost:8983/solr/football/query?q=' + first + '%3A' + second + '&q.op=OR&indent=true&rows=' + num;
@@ -38,6 +42,10 @@ function req_function(first, second, num) {
     req.end();
 
 }
+
+app.get('/', function(req, res) {
+    res.render('index.ejs');
+});
 
 app.get('/query/:field/:value/:num', function (req, res) {
     let _field = req.params.field;

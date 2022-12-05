@@ -30,4 +30,12 @@ function req(first, second, num) {
 
 const myArgs = process.argv.slice(2)
 
-req(myArgs[0], myArgs[1], myArgs[2])
+if (myArgs.length < 3) {
+    num = 10;
+} else {
+    num = myArgs[2];
+}
+
+module.exports = {
+    req_function: req()
+ }

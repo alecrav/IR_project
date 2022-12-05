@@ -26,7 +26,7 @@ app.get('/get', function (req, res) {
     console.log(JSON.stringify(req.query), _field, _value, _num);
     
 
-    let url = 'http://localhost:8983/solr/football/query?q=*' + '%3A*' + _value + '*&q.op=OR&indent=true&rows=' + _num;
+    let url = 'http://localhost:8983/solr/football/query?q=*'+ _value + '*&q.op=OR&indent=true&rows=' + _num;
     
     // get the data making another request
     axios({

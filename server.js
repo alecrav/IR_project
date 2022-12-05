@@ -1,6 +1,7 @@
 var express = require('express');
 const https = require('http');
 const path = require('path');
+const axios = require('axios');
 var app = express();
 var fs = require('fs');
 const { response } = require('express');
@@ -43,6 +44,8 @@ function req_function(first, second, num) {
 
 }
 
+// endpoints
+
 app.get('/', function(req, res) {
     res.render('index.ejs');
 });
@@ -52,9 +55,27 @@ app.get('/query/:field/:value/:num', function (req, res) {
     let _value = req.params.value;
     let _num = req.params.num;
 
-    if (req.accepts('application/json')) {
-        res.status(200).type('application/json').json(req_function(_field, _value, _num));
-    }
+    // if (req.accepts('application/json')) {
+        // res.status(200).type('application/json').json(req_function(_field, _value, _num));
+    // }
+
+    let url = 'http://localhost:8983/solr/football/query?q=' + _field + '%3A' + _value + '&q.op=OR&indent=true&rows=' + _num;
+    
+    // get the data making another request
+    axios({
+        method:'get',
+        url,
+        auth: {
+            username: 'the_username',
+            password: 'the_password'
+        }
+    })
+    .then(function (response) {
+        res.send(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
 })
 
 app.listen(3000, () => console.log('Listening'));

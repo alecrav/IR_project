@@ -1,33 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<% 
+let results='' ;
+
+
+%>
+
+  <head>
     <link rel="stylesheet" href="style.css" type="text/css">
     <meta charset="UTF-8">
     <title>IR</title>
-</head>
-<body class="container">
+  </head>
 
-<header>
-  <%- include('./includes/header'); %>
-</header>
+  <body class="container">
 
-<main class="content">
-  <div>
-    <h1>DO THE THING</h1>
-  </div>
-  <div>
-    <form action="/get" method="GET">
+    <!-- <header>
+      <%- include('./includes/header'); %>
+    </header> -->
+
+    <main class="content">
       <div>
-        <input class="butto" id="example" type="value" name="value" />
-        <input class='butto' type="submit" value="Submit">
+        <h1>DO THE THING</h1>
       </div>
-    </form>
-  </div>
-</main>
+      <div>
+        <form action="/get" method="GET">
+          <div>
+            <input class="butto" id="example" type="value" name="value" />
+            <input class='butto' type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
+      <div>
+        result
+        <%- results %>
+          result
+      </div>
+    </main>
 
-<footer>
-  <%- include('./includes/footer'); %>
-</footer>
+    <footer>
+      <%- include('./includes/footer'); %>
+    </footer>
 
-</body>
-</html>
+  </body>

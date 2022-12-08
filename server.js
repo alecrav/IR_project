@@ -44,8 +44,26 @@ app.get('/get', function (req, res) {
             console.log(err);
             return;
         }
-        console.log('Response:', result.response);
-    });
+        toRender = result.response
+        console.log('Response:', toRender);
+
+        if (req.accepts("text/html")) {
+
+            let css = 'public/style.css'
+
+            let model = {
+                css,
+                toRender,
+            }
+
+            res.render('index.ejs', model)
+            
+        } else if (req.accepts("application/json")) {
+            res.status(200).json(result);
+        } else {
+            res.status(406).end();
+        }
+    })
 })
 
 app.get('*', function (req, res) {

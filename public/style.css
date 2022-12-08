@@ -16,7 +16,7 @@ body {
 nav {
     position: fixed;
     left: 0; 
-    top:0;
+    top: 10px;;
     width: 100%;
     text-align: center;
 }
@@ -41,14 +41,30 @@ nav a:visited {
     color: #f2f2f2;
 }
 
+.butto{
+    background-color: #121212;
+    color: #f2f2f2;
+    border: 2px solid #f2f2f2;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
 /* Style the content */
 .content {
+    margin-top: 50px;
+    height: 100%;
     padding: 10px;
     height: 200px;
     flex: 1 0 auto;
-    /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
     padding: 20px;
     text-align: center;
+    align-items: center;
 }
 
 /* Style the footer */

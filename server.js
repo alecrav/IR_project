@@ -1,53 +1,56 @@
 var express = require('express');
-const https = require('http');
-const path = require('path');
-const axios = require('axios');
+var SolrNode = require('solr-node');
 var app = express();
-var fs = require('fs');
 var bodyParser = require('body-parser');
-const { response } = require('express');
+const path = require('path');
 const port = 3000;
 
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.json());
 
+var client = new SolrNode({
+    host: '127.0.0.1',
+    port: '8983',
+    core: 'football',
+    protocol: 'http'
+});
+
 // endpoints
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.render('index.ejs');
 });
 
 app.get('/get', function (req, res) {
     res.render('index.ejs');
-    let _field = req.query.field;
     let _value = req.query.value;
-    let _num = req.query.num;
-    console.log(JSON.stringify(req.query), _field, _value, _num);
-    
+    console.log(JSON.stringify(req.query), _value);
 
-    let url = 'http://localhost:8983/solr/football/query?q=*'+ _value + '*&q.op=OR&indent=true&rows=' + _num;
-    
-    // get the data making another request
-    axios({
-        method:'get',
-        url,
-        auth: {
-            username: 'the_username',
-            password: 'the_password'
+    client_query = client.query()
+        .q(_value)
+        .addParams({
+            wt: 'json',
+            indent: true
+        })
+        .start(0)
+        .rows(100)
+        ;
+
+    console.log(client_query);
+
+    client.search(client_query, function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
         }
-    })
-    .then(function (response) {
-        res.status(200).send(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-        console.log(error);
+        console.log('Response:', result.response);
     });
 })
 
-app.get('*', function(req, res){
+app.get('*', function (req, res) {
     res.status(404)
     res.redirect('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
-  });
+});
 
 app.listen(3000, () => console.log('Listening'));

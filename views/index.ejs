@@ -1,5 +1,10 @@
 <% 
 let results='' ;
+a = toRender.docs;
+a.forEach(function (item) {
+  results += `
+  ${item.name} <br>`;
+});
 %>
 
   <head>
@@ -27,7 +32,7 @@ let results='' ;
         </form>
       </div>
       <div>
-        <%- JSON.stringify(a) %>
+        <%- results %>
         </div>
     </main>
 

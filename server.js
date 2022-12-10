@@ -1,7 +1,7 @@
 var express = require('express');
 const https = require('http');
 const path = require('path');
-const axios = require('axios');
+import fetch from 'node-fetch';
 var app = express();
 var fs = require('fs');
 var bodyParser = require('body-parser');
@@ -18,32 +18,31 @@ app.get('/', function(req, res) {
     res.render('index.ejs');
 });
 
-app.get('/get', function (req, res) {
-    res.render('index.ejs');
-    let _field = req.query.field;
-    let _value = req.query.value;
-    let _num = req.query.num;
-    console.log(JSON.stringify(req.query), _field, _value, _num);
-    
+const fetch_json = (_value) => {
+    const url = 'http://localhost:8983/solr/football/query?q=*'+ _value + '*&q.op=OR&indent=true&rows=10';
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            return data;
+        })
+}
 
-    let url = 'http://localhost:8983/solr/football/query?q=*'+ _value + '*&q.op=OR&indent=true&rows=' + _num;
-    
-    // get the data making another request
-    axios({
-        method:'get',
-        url,
-        auth: {
-            username: 'the_username',
-            password: 'the_password'
-        }
-    })
-    .then(function (response) {
-        res.status(200).send(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
+app.get('/get/', async (req, res)=> {
+    res.render('index.ejs');
+    let _value = req.query.value;
+    // let _num = req.query.num;
+    console.log(JSON.stringify(req.query), _value);
+
+    const data = await fetch_json(_value);
+    console.log(data, 'in the get');
+    res.json(data);
+
 })
+
+// app.get('/get/', function (req, res) {
+    // let url = 'http://localhost:8983/solr/football/query?q=*'+ _value + '*&q.op=OR&indent=true&rows=10';
+    // 
+// })
 
 app.get('*', function(req, res){
     res.status(404)

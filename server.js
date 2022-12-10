@@ -23,8 +23,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/get', function (req, res) {
-    res.render('index.ejs');
-    let _value = req.query.value;
+    let _value = '*' + req.query.value + '*';
     console.log(JSON.stringify(req.query), _value);
 
     client_query = client.query()
@@ -58,7 +57,8 @@ app.get('/get', function (req, res) {
 
             res.render('index.ejs', model)
             
-        } else if (req.accepts("application/json")) {
+        } 
+        else if (req.accepts("application/json")) {
             res.status(200).json(result);
         } else {
             res.status(406).end();

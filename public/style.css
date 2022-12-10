@@ -12,6 +12,19 @@ body {
     color: #ddd
 }
 
+body table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+
+}
+
+table th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
 /* Style the top navigation bar */
 nav {
     position: fixed;

@@ -1,15 +1,16 @@
 <% 
 let results='' ;
+a = toRender.docs;
 results += `
+    <table>
     <tr>
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Points</th>
-      <th>Country</th>
+      <th onclick="sortTable(0)">Rank</th>
+      <th onclick="sortTable(1)">Name</th>
+      <th onclick="sortTable(2)">Points</th>
+      <th onclick="sortTable(3)">Country</th>
     </tr>
   `;
 
-  a = toRender.docs;
   a.forEach((item) => {
     results += `
       <tr>
@@ -19,7 +20,10 @@ results += `
         <td>${item.country}</td>
       </tr>
     `;
+
   });
+
+  
 
 %>
 

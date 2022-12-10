@@ -19,7 +19,8 @@ var client = new SolrNode({
 // endpoints
 
 app.get('/', function (req, res) {
-    res.render('index.ejs');
+    res.render('index.ejs')
+
 });
 
 app.get('/get', function (req, res) {
@@ -55,9 +56,9 @@ app.get('/get', function (req, res) {
                 toRender,
             }
 
-            res.render('index.ejs', model)
-            
-        } 
+            res.render('results.ejs', model)
+
+        }
         else if (req.accepts("application/json")) {
             res.status(200).json(result);
         } else {

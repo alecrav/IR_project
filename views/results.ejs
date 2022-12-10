@@ -1,5 +1,25 @@
 <% 
 let results='' ;
+results += `
+    <tr>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Points</th>
+      <th>Country</th>
+    </tr>
+  `;
+
+  a = toRender.docs;
+  a.forEach((item) => {
+    results += `
+      <tr>
+        <td>${item.rank}</td>
+        <td>${item.name}</td>
+        <td>${item.points}</td>
+        <td>${item.country}</td>
+      </tr>
+    `;
+  });
 
 %>
 

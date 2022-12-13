@@ -2,8 +2,10 @@ var express = require('express');
 var SolrNode = require('solr-node');
 var app = express();
 var bodyParser = require('body-parser');
+var country = require('country-list-js');
 const path = require('path');
 const port = 3000;
+
 
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/public')));
@@ -24,9 +26,15 @@ app.get('/', function (req, res) {
 });
 
 app.get('/get', function (req, res) {
-    let _value = '*' + req.query.value + '*';
-    console.log(JSON.stringify(req.query), _value);
+    let _value = '';
+    if (req.query.selector === 'all') {
+        _value = '*' + req.query.value + '*';
+    } else {
+        _value = req.query.selector + ':' + '*' + req.query.value + '*';
+    } 
 
+    console.log(JSON.stringify(req.query), _value);
+    
     client_query = client.query()
         .q(_value)
         .addParams({
@@ -34,7 +42,7 @@ app.get('/get', function (req, res) {
             indent: true
         })
         .start(0)
-        .rows(100)
+        .rows(200)
         ;
 
     console.log(client_query);
@@ -46,6 +54,52 @@ app.get('/get', function (req, res) {
         }
         toRender = result.response
         console.log('Response:', toRender);
+
+        if (req.accepts("text/html")) {
+
+            let css = 'public/style.css'
+
+            let model = {
+                css,
+                toRender,
+            }
+
+            res.render('results.ejs', model)
+
+        }
+        else if (req.accepts("application/json")) {
+            res.status(200).json(result);
+        } else {
+            res.status(406).end();
+        }
+    })
+})
+
+app.get('/get/:continent', function (req, res) {
+    console.log(req.params.continent)
+    let _value = req.params.continent;
+
+    console.log(JSON.stringify(req.query), _value);
+    
+    client_query = client.query()
+        .q(_value)
+        .addParams({
+            wt: 'json',
+            indent: true
+        })
+        .start(0)
+        .rows(200)
+        ;
+
+    console.log('client query: ' + client_query);
+
+    client.search(client_query, function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        toRender = result.response
+        // console.log('Response:', toRender);
 
         if (req.accepts("text/html")) {
 

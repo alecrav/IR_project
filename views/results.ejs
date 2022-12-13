@@ -1,4 +1,4 @@
-<% let results='' ; a=toRender.docs; results +=` <table id='footballTable'>
+  <% let results='' ; a=toRender.docs; results +=` <table id='footballTable'>
   <tr>
     <th onclick="sortTable(0)">Rank</th>
     <th onclick="sortTable(1)">Name</th>
@@ -37,8 +37,21 @@
         <h1>DO THE THING</h1>
       </div>
       <div>
+        <button class="butto" onclick="sort_by_continent('Europe')">Europe</button>
+        <button class="butto" onclick="sort_by_continent('Africa')">Africa</button>
+        <button class="butto" onclick="sort_by_continent('Asia')">Asia</button>
+        <button class="butto" onclick="sort_by_continent('America')">America</button>
+        <button class="butto" onclick="sort_by_continent('Oceania')">Oceania</button>
+      </div>
+      <div>
         <form action="/get" method="GET">
           <div>
+            <select class="butto" name="selector">
+              <option value="all">All</option>
+              <option value="name">Name</option>
+              <option value="country">Country</option>
+              <option value="rank">Rank</option>
+            </select>
             <input class="butto" id="example" type="value" name="value" />
             <input class='butto' type="submit" value="Submit">
           </div>
@@ -49,6 +62,8 @@
       </div>
 
       <script>
+        
+
         function sortTable(n) {
           console.log('here');
           var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -74,16 +89,32 @@
               /*check if the two rows should switch place,
               based on the direction, asc or desc:*/
               if (dir == "asc") {
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                  //if so, mark as a switch and break the loop:
-                  shouldSwitch = true;
-                  break;
+                if (parseInt(x.innerHTML) === NaN) {
+                  if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                  }
+                } else {
+                  if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                  }
                 }
               } else if (dir == "desc") {
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                  //if so, mark as a switch and break the loop:
-                  shouldSwitch = true;
-                  break;
+                if (parseInt(x.innerHTML) === NaN) {
+                  if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                  }
+                } else {
+                  if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                  }
                 }
               }
             }
@@ -103,7 +134,8 @@
               }
             }
           }
-        }
+        }        
+      
       </script>
     </main>
 

@@ -20,8 +20,21 @@ let results='' ;
         <h1>DO THE THING</h1>
       </div>
       <div>
+        <button class="butto" onclick="sort_by_continent('Europe')">Europe</button>
+        <button class="butto" onclick="sort_by_continent('Africa')">Africa</button>
+        <button class="butto" onclick="sort_by_continent('Asia')">Asia</button>
+        <button class="butto" onclick="sort_by_continent('America')">America</button>
+        <button class="butto" onclick="sort_by_continent('Oceania')">Oceania</button>
+      </div>
+      <div>
         <form action="/get" method="GET">
           <div>
+            <select class="butto" name="selector">
+              <option value="all">All</option>
+              <option value="name">Name</option>
+              <option value="country">Country</option>
+              <option value="rank">Rank</option>
+            </select>
             <input class="butto" id="example" type="value" name="value" />
             <input class='butto' type="submit" value="Submit">
           </div>
@@ -30,6 +43,16 @@ let results='' ;
       <div>
         <%- results %>
         </div>
+
+      <script>
+        function sort_by_continent(continent) {
+          console.log(continent);
+          fetch('/get/' + continent,{ headers: { 'Accept': 'application/json' } } ).then(result => {
+            console.log("result: " + result);
+          }
+        )}
+
+      </script>
     </main>
 
     <footer>

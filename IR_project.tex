@@ -50,6 +50,15 @@ What did we use in our project:
     \item Express js
 \end{itemize}
 We created a Nodejs webserver listening on port 3000 and managed the frontend with Express js views. The \texttt{solr-node} package is essential to ease the fetching of datas from node server to the backend and consequently to the frontend, where the the result is rendered in real-time.
+Here the steps when the user submit a query via web browser:
+\begin{itemize}
+    \item The client sends a request to the NodeJS server
+    \item the server unpack the request and parse the user's query
+    \item the server queries via \texttt{solr-node} the Solr server at port 8983
+    \item the Solr server responds with the coherent documents
+    \item the NodeJS server creates a model with those documents in JSON format and renders the result with ExpressJS 
+\end{itemize}
+
 \subsection{System Design}
 We created a web application with the very simple goal of searching football teams from a database, with the possibility of filter them by some parameters (as country, poinst, ranking and name).
 The interface is simple and intuitive, and is composed of two main parts: the search bar and the results.
@@ -118,22 +127,26 @@ var client = new SolrNode({
     protocol: 'http'
 });
 \end{lstlisting}
-After retrieving the result from Solr, we create a model and render it with Express, as explained in the\hyperref[sec:frontend]{next section}.
+After retrieving the result from Solr, we create a model and render it with Express, as explained in the \hyperref[sec:frontend]{next section}.
 
 \subsection{Frontend and User Interface}
 \label{sec:frontend}
+The web app has a simple and intuitive look: a research bar, some buttons with a clear meaning and under the research bar, when a query is elaborated, appear a maximum of the 200 most coherent elements as result.\\
+We used Express js to dynamically render the pages; the results are shown in a tabular representation, and can be sorted clicking on the first element of the column.\\ We found interesting to group all the teams by continent, and to do that there are five buttons on top of the research bar.
 
 \subsection{Start and use the application}
 \begin{enumerate}
     \item open the provided Solr folder in terminal
     \item run \texttt{./bin/solr start}
     \item download the repository from github\footnote{\url{https://github.com/alecrav/IR_project.git}} and open it in terminal
-    \item run \textt{npm i}
+    \item run \texttt{npm i}
     \item run \texttt{nodemon server.js}
     \item go in the preferred web browser and open \texttt{http://localhost:3000}
     \item search!
 \end{enumerate}
 \section{User Evaluation}
+We followed the principles toverwieved in class to evaluate our system from a user perspective; we initially asked the users to perform some tasks without any prior knolewdge of the system and then we asked them to fill the form given in class. In addition we asked them to write some lines of comments and observations they might have.\\
+Below is a summary of the results to the users' suggestions
 
 \section{Figures}
 Just put some images of the website

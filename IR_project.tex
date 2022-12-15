@@ -5,6 +5,16 @@
 \usepackage{hyperref}
 
 \usepackage{listings}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./media} }
+\usepackage{float}
+\clearpage
+\usepackage{fourier} 
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{caption}
 
 \lstdefinelanguage{js}{
   keywords={type,image,changes, CMD, WORKDIR, EXPOSE, builders, commit},
@@ -145,8 +155,38 @@ We used Express js to dynamically render the pages; the results are shown in a t
     \item search!
 \end{enumerate}
 \section{User Evaluation}
-We followed the principles toverwieved in class to evaluate our system from a user perspective; we initially asked the users to perform some tasks without any prior knolewdge of the system and then we asked them to fill the form given in class. In addition we asked them to write some lines of comments and observations they might have.\\
-Below is a summary of the results to the users' suggestions
+We followed the principles overwieved in class to evaluate our system from a user perspective; we initially asked the users to perform some tasks without any prior knolewdge of the system and then we asked them to fill the form given in class. In addition we asked them to write some lines of comments and observations they might have.\\
+the task they had to do were:
+\begin{itemize}
+    \item search for the the team classified at position 1 and the team at position 732
+    \item search for all the teams that are in Italy
+    \item search for all the teams named Juve that are located in Guatemala
+\end{itemize}
+Below is a summary of the results to the users' suggestions; we chose to report only some questions for simplicity.\\
+\subsection{Form result}
+\begin{center}
+  \includegraphics[width=0.8\linewidth]{media/graph_1.png}\\
+  \label{image:image-1}
+\end{center}
+
+\begin{center}
+  \includegraphics[width=0.8\linewidth]{media/graph_2.png}\\
+  \label{image:image-1}
+\end{center}
+
+\begin{center}
+  \includegraphics[width=0.8\linewidth]{media/graph_3.png}\\
+  \label{image:image-1}
+\end{center}
+
+\subsection{Users suggestions}
+The comments made by users can be summarised as follows:
+\begin{itemize}
+    \item the user interface is clean and easy to understand
+    \item when the field is not specified the result can be confusing
+    \item the results are very tight
+    \item the user are in general satisfied with their goal (finding a football team)
+\end{itemize}
 
 \section{Figures}
 Just put some images of the website

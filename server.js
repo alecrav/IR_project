@@ -75,51 +75,6 @@ app.get('/get', function (req, res) {
     })
 })
 
-app.get('/get/:continent', function (req, res) {
-    console.log(req.params.continent)
-    let _value = req.params.continent;
-
-    console.log(JSON.stringify(req.query), _value);
-    
-    client_query = client.query()
-        .q(_value)
-        .addParams({
-            wt: 'json',
-            indent: true
-        })
-        .start(0)
-        .rows(200)
-        ;
-
-    console.log('client query: ' + client_query);
-
-    client.search(client_query, function (err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        toRender = result.response
-        // console.log('Response:', toRender);
-
-        if (req.accepts("text/html")) {
-
-            let css = 'public/style.css'
-
-            let model = {
-                css,
-                toRender,
-            }
-
-            res.render('results.ejs', model)
-
-        }
-        else if (req.accepts("application/json")) {
-            res.status(200).json(result);
-        } else {
-            res.status(406).end();
-        }
-    })
-})
 
 app.get('*', function (req, res) {
     res.status(404)

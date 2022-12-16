@@ -1,4 +1,6 @@
-  <% let results='' ; a=toRender.docs; results +=` <table id='footballTable'>
+  <% 
+  
+  let results='' ; a=toRender.docs; results +=` <table id='footballTable'>
   <tr>
     <th onclick="sortTable(0)">Rank</th>
     <th onclick="sortTable(1)">Name</th>
@@ -16,8 +18,24 @@
     <td>${item.country}</td>
   </tr>
   `;
-
   });
+
+
+  console.log('######################################################################################')
+  count = 1;
+  for (let i = 0; i < (a.length-1); i++) {
+    console.log('count = ' + count);
+    console.log('country = ' + a[i].country);
+    if (a[i].country != a[i+1].country) {
+      count++;
+    }
+  }
+  let suggestion;
+  if(count > 1){
+    suggestion = a[0].country
+    console.log(count + '-' + suggestion);
+  }
+  
   %>
 
   <head>
@@ -37,6 +55,7 @@
         <h1>DO THE THING</h1>
       </div>
       <div>
+        <form action="/get/europe"><button class="butto">Europe</button></form>
         <button class="butto" onclick="sort_by_continent('Europe')">Europe</button>
         <button class="butto" onclick="sort_by_continent('Africa')">Africa</button>
         <button class="butto" onclick="sort_by_continent('Asia')">Asia</button>
@@ -60,8 +79,38 @@
       <div>
         <%- results %>
       </div>
-
+      <div>
+        You might be interested in other teams from <button id="asd"><%- suggestion %></button>
+      </div>
       <script>
+
+        document.getElementById("asd").addEventListener("click", function(){
+          let asd = "<%- suggestion %>";
+          console.log(asd);
+          fetch('/get/' + asd, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then((data) => {
+            console.log(data);
+            let results = '';
+            console.log('data body: ' + data.body);
+            data.body.forEach((item) => {
+              results += `
+              <tr>
+                <td>${item.rank}</td>
+                <td>${item.name}</td>
+                <td>${item.points}</td>
+                <td>${item.country}</td>
+              </tr>
+              `;
+            });
+            document.getElementById('footballTable').innerHTML = results;
+          }).catch((err) => {
+            console.log(err);
+          })
+          });
         
 
         function sortTable(n) {

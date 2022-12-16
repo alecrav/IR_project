@@ -123,7 +123,7 @@ app.get('/get/:continent', function (req, res) {
 
 app.get('*', function (req, res) {
     res.status(404)
-    res.redirect('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
 });
 
 app.listen(3000, () => console.log('Listening'));
+

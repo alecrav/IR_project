@@ -27,13 +27,20 @@ app.get('/', function (req, res) {
 
 app.get('/get', function (req, res) {
     let _value = '';
+    console.log(req.query.value)
+    console.log(isNaN(req.query.value));
     if (req.query.selector === 'all') {
         _value = '*' + req.query.value + '*';
     } else {
-        _value = req.query.selector + ':' + '*' + req.query.value + '*';
+        if (req.query.selector === 'rank') {
+            _value = req.query.selector + ':' + req.query.value;
+        } else {
+            _value = req.query.selector + ':' + '*' + req.query.value + '*';
+        }
     } 
+    console.log(_value)
 
-    console.log(JSON.stringify(req.query), _value);
+    // console.log(JSON.stringify(req.query), _value);
     
     client_query = client.query()
         .q(_value)
@@ -53,7 +60,7 @@ app.get('/get', function (req, res) {
             return;
         }
         toRender = result.response
-        console.log('Response:', toRender);
+        // console.log('Response:', toRender);
 
         if (req.accepts("text/html")) {
 

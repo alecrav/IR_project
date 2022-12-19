@@ -23,11 +23,16 @@
 
   console.log('######################################################################################')
   count = 1;
-  for (let i = 0; i < (a.length-1); i++) {
-    console.log('count = ' + count);
-    console.log('country = ' + a[i].country);
-    if (a[i].country != a[i+1].country) {
-      count++;
+  if (a.length == 1) {
+    count = 2;
+  } else {
+
+    for (let i = 0; i < (a.length-1); i++) {
+      console.log('count = ' + count);
+      console.log('country = ' + a[i].country);
+      if (a[i].country != a[i+1].country) {
+        count++;
+      }
     }
   }
   let suggestion;
